@@ -1,0 +1,38 @@
+spring:
+    application:
+        name: sample-service      
+    datasource:
+      url: jdbc:oracle:thin:@10.128.91.61:1521:hkpes4
+      username: csms_con_pool
+      password: manu0623
+      driver-class-name: oracle.jdbc.OracleDriver
+      max-rows : 500
+      tomcat:
+        test-on-connect: true
+        validation-query: select 1 from dual
+        init-s-q-l: DECLARE return_code varchar2(10); BEGIN  CSMS_ENABLE_ROLE('clcw',RETURN_CODE); IF return_code<>'0' THEN   raise_application_error(-20001, 'Invalid return code ('||return_code||') in CSMS_ENABLE_ROLE'); END IF; END;
+
+security:
+    basic:
+        enabled: false
+    oauth2:
+        resource:
+            jwt:
+               key-uri: https://manulife-dev.login.sys.eas.pcf.manulife.com/token_key
+
+server:
+    port: 8090
+    
+#eureka:
+ #  instance:
+  #   leaseRenewalIntervalInSeconds: 1
+  #   leaseExpirationDurationInSeconds: 2
+ # client:
+  # serviceUrl:
+   #   defaultZone: http://127.0.0.1:8761/eureka/
+   #healthcheck:
+    # enabled: true
+#    lease:
+#      duration: 5
+ 
+    
